@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -16,6 +17,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btSelectVideo_clicked()
 {
+
+
 
 }
 
