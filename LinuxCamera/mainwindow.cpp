@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     initUI();
     m_curCamera = new CCameraDevice();
     m_curAudioCapture = new CAudioDevice();
+    m_aacEncode = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -42,17 +43,37 @@ MainWindow::~MainWindow()
         delete m_curAudioCapture;
         m_curAudioCapture = NULL;
     }
+    if(m_aacEncode)
+    {
+        delete m_aacEncode;
+        m_aacEncode = NULL;
+    }
 }
 
 bool MainWindow::OnAVData(char *buff, int buffsize, VideoParam *videoParam, AudioParam *audioParam)
 {
+    bool aac = ui->cmbAudioFormat->currentIndex() == 0;
     if(videoParam)
     {
         LOG(QString(" yuv data: buffsize=%1").arg(buffsize));
     }
     if(audioParam)
     {
-        LOG(QString(" pcm data: buffsize=%1").arg(buffsize));
+        if(aac)
+        {
+            if(m_aacEncode == NULL)
+            {
+                m_aacEncode = new AACEncodeMgr();
+                m_aacEncode->Init(*audioParam);
+            }
+            char* out = NULL;
+            int outSize = 0;
+            m_aacEncode->encode(buff,buffsize,out,outSize);
+        }
+        else
+        {
+
+        }
     }
     return true;
 }

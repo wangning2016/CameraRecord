@@ -108,4 +108,11 @@ typedef struct BUFTYPE
 
 typedef bool (*pf_AVDataCallBack)(char* buff, int buffsize,VideoParam* videoParam,AudioParam* audioParam,void* userData);
 
+class AudioEncode
+{
+public:
+    virtual void Init(AudioParam param) = 0;
+    virtual bool encode(char* buff, int buffsize,char* out, int& outSize)=0;
+};
+
 #endif // DEVICE_DEF_H

@@ -5,6 +5,7 @@
 #include "cdevicemgr.h"
 #include "ccameradevice.h"
 #include "caudiodevice.h"
+#include "aacencodemgr.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,6 +51,9 @@ private:
 
     CCameraDevice* m_curCamera;
     CAudioDevice* m_curAudioCapture;
+
+
+    AACEncodeMgr* m_aacEncode;
 
 
 private:
